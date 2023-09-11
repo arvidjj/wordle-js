@@ -1,0 +1,56 @@
+
+:root {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+main {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+}
+
+.teclado {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+}
+
+.fila {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:15px;
+}
+
+.tecla {
+    background-color: lightgray;
+    padding:10px;
+    padding-inline: 15px;
+    text-transform: uppercase;
+}
+
+.teclaAncha {
+    text-transform: none;
+    flex:1;
+}
+
+.boardFila {
+    display:flex;
+}
+
+.letra {
+    align-items: center;
+    border: 2px solid #dee1e9;
+    font-size: 28px;
+    font-weight: 700;
+    height: 56px;
+    margin: 3px;
+    text-transform: uppercase;
+    width: 56px;
+    border-radius: 5px;
+    color: #393e4c;
+    background: #fbfcff;
+}
