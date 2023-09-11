@@ -20,18 +20,34 @@ main {
 
 .fila {
     display:flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: stretch;
     gap:15px;
 }
 
 .tecla {
-    background-color: lightgray;
-    padding:10px;
-    padding-inline: 15px;
-    text-transform: uppercase;
+    align-items: center;
+    background-color: rgb(174, 195, 203);
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    flex: 1 1;
+    font-size: 17px;
+    font-weight: bold;
+    justify-content: center;
+    padding: 15px;
+    padding-inline: 19px;
+    text-decoration: inherit;
+    text-transform: capitalize;
 }
-
+.tecla:hover {
+    background-color: rgb(212, 225, 230);
+}
+.tecla:active {
+    transform: scale(1.15);
+}
 .teclaAncha {
     text-transform: none;
     flex:1;
