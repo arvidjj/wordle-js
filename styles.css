@@ -58,7 +58,6 @@ main {
 }
 
 .letra {
-    align-items: center;
     border: 2px solid #dee1e9;
     font-size: 28px;
     font-weight: 700;
@@ -69,4 +68,9 @@ main {
     border-radius: 5px;
     color: #393e4c;
     background: #fbfcff;
+
+    text-align: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
