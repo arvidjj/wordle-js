@@ -90,14 +90,7 @@ function empezarJuego() {
 
 
     document.addEventListener("keydown", teclaHandler);
-    teclas.forEach((tecla) => {
-        tecla.addEventListener("click", () => {
-            if (!finalizado) {
-                clickEnTecla(tecla.textContent);
-            }
-        })
-    });
-
+    teclas.forEach((tecla) => tecla.addEventListener("click", clickEnTecla));
 }
 
 function teclaHandler(event) {
@@ -110,9 +103,13 @@ function teclaHandler(event) {
         clickEnTecla(event.key);
     }
 }
-function clickEnTecla(letra) {
+function clickEnTecla(presionado) {
     //escribirLetra(letra);
     //Si presiono enter, chequear palabra escrita si es que esta completa
+    let letra = presionado;
+    if (letra.srcElement) {
+        letra = presionado.srcElement.textContent //por si toca los botones
+    }
     if (letra === 'Enter') {
         if (posLetraActual == 5) {
             chequearPalabraEscrita();
@@ -236,13 +233,7 @@ function ocultarModales() {
 
 function desactivarEventListeners() {
     document.removeEventListener("keydown", teclaHandler);
-    teclas.forEach((tecla) => {
-        tecla.removeEventListener("click", () => {
-            if (!finalizado) {
-                clickEnTecla(tecla.textContent);
-            }
-        });
-    });
+    teclas.forEach((tecla) => tecla.removeEventListener("click", clickEnTecla));
 }
 
 empezarJuego();
