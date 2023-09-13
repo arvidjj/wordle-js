@@ -1,24 +1,79 @@
 let intentos = 6;
-let palabraObjetivo = "APPLE";
+
+let palabrasAleatorias = [
+    "verde",
+    "negro",
+    "apodo",
+    "guion",
+    "coche",
+    "calvo",
+    "dieta",
+    "disco",
+    "hacha",
+    "hueso",
+    "impar",
+    "largo",
+    "larva",
+    "jabon",
+    "junio",
+    "lider",
+    "limon",
+    "angel",
+    "nuevo",
+    "oeste",
+    "ojera",
+    "palma",
+    "tesis",
+    "vagon",
+    "vacio",
+    "yerno",
+    "yogur",
+    "apoyo",
+    "agudo",
+    "ancho",
+    "arabe",
+]
 
 let intento = 0;
 let palabraEscrita = "";
 let posLetraActual = 0;
 
+let iniciado = false;
 let finalizado = false;
 
 const teclas = document.querySelectorAll(".tecla");
 const filas = document.querySelectorAll(".boardFila");
 const botonReiniciar = document.getElementById('reiniciar');
+const divAviso = document.querySelector(".aviso")
+divAviso.style.display = "none"
 botonReiniciar.addEventListener('click', empezarJuego)
 
+function seleccionarPalabraAleatoria(palabras) {
+    const indiceAleatorio = Math.floor(Math.random() * palabras.length);
+    return palabras[indiceAleatorio];
+}
+
+function mostrarAviso(aviso) {
+    divAviso.textContent = aviso
+    divAviso.style.display = 'flex'
+    setTimeout(() => {
+        divAviso.style.display = 'none'
+    }, 1000);
+}
+
 function empezarJuego() {
+
     intentos = 6;
-    palabraObjetivo = "APPLE";
+    palabraObjetivo = seleccionarPalabraAleatoria(palabrasAleatorias).toUpperCase();
     intento = 0;
     palabraEscrita = "";
     posLetraActual = 0;
     finalizado = false
+
+    if (iniciado === true) {
+        mostrarModal("reinicio")
+    }
+    iniciado = true;
     const letras = document.querySelectorAll(".letra");
     letras.forEach((letra) => {
         letra.textContent = ''
@@ -67,8 +122,9 @@ function clickEnTecla(letra) {
             letrasEnFila[posLetraActual - 1].textContent = "";
 
             posLetraActual -= 1;
+        } else {
+            mostrarAviso('No hay nada que borrar')
         }
-        console.log("No hay nada que borrar");
     }
     //Si no es enter, escribir letra
     else {
@@ -80,7 +136,7 @@ function clickEnTecla(letra) {
                 }
             });
         } else {
-            console.log("Palabra llena")
+            mostrarAviso('La palabra esta llena')
         }
     }
 }
@@ -119,7 +175,7 @@ function chequearPalabraEscrita() {
         }
     });
 
-    if ((intento == intentos-1) || (palabraEscrita == palabraObjetivo)) {
+    if ((intento == intentos - 1) || (palabraEscrita == palabraObjetivo)) {
         terminarJuego(palabraEscrita);
     }
 }
@@ -144,7 +200,7 @@ function mostrarModal(suceso) {
     let modal = document.querySelector('#modal');
     let contenidoModal = document.querySelector('.modal-content');
     let tituloModal = document.querySelector('#tituloModal')
-    let palabraCorrecta = document.querySelector ('#palabraCorrecta')
+    let palabraCorrecta = document.querySelector('#palabraCorrecta')
     let botonAceptar = document.querySelector('#aceptarModal')
 
     if (suceso === 'ganar') {
@@ -154,6 +210,11 @@ function mostrarModal(suceso) {
         contenidoModal.style.display = "flex";
     } else if (suceso === 'perder') {
         tituloModal.textContent = 'Has Perdido!'
+        palabraCorrecta.textContent = palabraObjetivo
+        modal.style.display = "flex";
+        contenidoModal.style.display = "flex";
+    } else if (suceso === 'reinicio') {
+        tituloModal.textContent = 'Reiniciar juego'
         palabraCorrecta.textContent = palabraObjetivo
         modal.style.display = "flex";
         contenidoModal.style.display = "flex";

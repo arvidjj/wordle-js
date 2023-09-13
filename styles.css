@@ -172,12 +172,12 @@ main {
     }
 
     1% {
-        display: block;
+        display: flex;
         opacity: 0;
     }
 
     100% {
-        display: block;
+        display: flex;
         opacity: 1;
     }
 }
@@ -189,12 +189,12 @@ main {
     }
 
     1% {
-        display: block;
+        display: flex;
         opacity: 0;
     }
 
     100% {
-        display: block;
+        display: flex;
         opacity: 1;
     }
 }
@@ -206,12 +206,12 @@ main {
     }
 
     1% {
-        display: block;
+        display: flex;
         opacity: 0;
     }
 
     100% {
-        display: block;
+        display: flex;
         opacity: 1;
     }
 }
@@ -223,12 +223,12 @@ main {
     }
 
     1% {
-        display: block;
+        display: flex;
         opacity: 0;
     }
 
     100% {
-        display: block;
+        display: flex;
         opacity: 1;
     }
 }
@@ -278,4 +278,27 @@ footer {
 
 footer p {
     margin: 0;
+}
+
+.aviso {
+    background-color: #393e4c;
+    border-radius: 15px;
+    width: 15rem;
+    height: 3rem;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 0.2rem;
+    -webkit-animation: fadeInFromNone 0.2s ease-out;
+    -moz-animation: fadeInFromNone 0.2s ease-out;
+    -o-animation: fadeInFromNone 0.2s ease-out;
+    animation: fadeInFromNone 0.2s ease-out;
+}
+
+
+.avisoContainer {
+    height: 3rem;
 }
