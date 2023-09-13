@@ -60,9 +60,15 @@ function mostrarAviso(aviso) {
         divAviso.style.display = 'none'
     }, 1000);
 }
-
+function mostrarAvisoLargo(aviso) {
+    divAviso.textContent = aviso
+    divAviso.style.display = 'flex'
+}
+function quitarAviso() {
+    divAviso.style.display = 'none'
+}
 function empezarJuego() {
-
+    quitarAviso()
     intentos = 6;
     palabraObjetivo = seleccionarPalabraAleatoria(palabrasAleatorias).toUpperCase();
     intento = 0;
@@ -183,9 +189,10 @@ function chequearPalabraEscrita() {
 async function terminarJuego(palabraEscrita) {
     console.log("Juego terminado")
     finalizado = true
+    iniciado = false;
 
     desactivarEventListeners();
-
+    mostrarAvisoLargo(palabraObjetivo)
     setTimeout(() => {
         if (palabraEscrita == palabraObjetivo) {
             console.log("Felicidades!");
