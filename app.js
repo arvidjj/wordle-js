@@ -76,18 +76,24 @@ function empezarJuego() {
     posLetraActual = 0;
     finalizado = false
 
+    //si el juego se reinicio (no se termino), mostrar modal
     if (iniciado === true) {
         mostrarModal("reinicio")
     }
     iniciado = true;
     const letras = document.querySelectorAll(".letra");
+    //quitar el color a las letras
     letras.forEach((letra) => {
         letra.textContent = ''
         letra.classList.remove('letraCorrecta')
         letra.classList.remove('letraPosicionCorrecta')
         letra.classList.remove('letraIncorrecta')
     });
-
+    let teclasTeclado = Array.from(teclas);
+    //quitar el color a las teclas
+    teclasTeclado.forEach((t) => {
+        t.classList.remove('teclaPresionada');
+    });
 
     document.addEventListener("keydown", teclaHandler);
     teclas.forEach((tecla) => tecla.addEventListener("click", clickEnTecla));
@@ -173,8 +179,9 @@ function chequearPalabraEscrita() {
 
     let teclasTeclado = Array.from(teclas);
     teclasTeclado.forEach((t) => {
-        if (palabraEscrita.includes(t.textContent)) {
+        if (palabraEscrita.includes(t.textContent.toUpperCase())) {
             t.classList.add('teclaPresionada');
+            console.log(t)
         }
     });
 
