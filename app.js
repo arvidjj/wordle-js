@@ -1,5 +1,17 @@
 let intentos = 6;
 
+function generarPalabra(letras){
+    let url = `https://random-word-api.herokuapp.com/word?number=${letras}`
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        palabraObjetivo = data[0].toUpperCase();
+        console.log(palabraObjetivo)
+    })
+    .catch(error => console.log(error))
+}
+
 let palabrasAleatorias = [
     "verde",
     "negro",
@@ -244,3 +256,7 @@ function desactivarEventListeners() {
 }
 
 empezarJuego();
+
+
+
+ 
