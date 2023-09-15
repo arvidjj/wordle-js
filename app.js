@@ -1,57 +1,10 @@
 let intentos = 6;
-
-function generarPalabra(letras){
-    let url = `https://random-word-api.herokuapp.com/word?number=${letras}`
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        palabraObjetivo = data[0].toUpperCase();
-        console.log(palabraObjetivo)
-    })
-    .catch(error => console.log(error))
-}
-
-let palabrasAleatorias = [
-    "verde",
-    "negro",
-    "apodo",
-    "guion",
-    "coche",
-    "calvo",
-    "dieta",
-    "disco",
-    "hacha",
-    "hueso",
-    "impar",
-    "largo",
-    "larva",
-    "jabon",
-    "junio",
-    "lider",
-    "limon",
-    "angel",
-    "nuevo",
-    "oeste",
-    "ojera",
-    "palma",
-    "tesis",
-    "vagon",
-    "vacio",
-    "yerno",
-    "yogur",
-    "apoyo",
-    "agudo",
-    "ancho",
-    "arabe",
-]
-
 let intento = 0;
 let palabraEscrita = "";
 let posLetraActual = 0;
-
 let iniciado = false;
 let finalizado = false;
+let palabraObjetivo;
 
 const teclas = document.querySelectorAll(".tecla");
 const filas = document.querySelectorAll(".boardFila");
@@ -59,11 +12,6 @@ const botonReiniciar = document.getElementById('reiniciar');
 const divAviso = document.querySelector(".aviso")
 divAviso.style.display = "none"
 botonReiniciar.addEventListener('click', empezarJuego)
-
-function seleccionarPalabraAleatoria(palabras) {
-    const indiceAleatorio = Math.floor(Math.random() * palabras.length);
-    return palabras[indiceAleatorio];
-}
 
 function mostrarAviso(aviso) {
     divAviso.textContent = aviso
@@ -79,10 +27,39 @@ function mostrarAvisoLargo(aviso) {
 function quitarAviso() {
     divAviso.style.display = 'none'
 }
-function empezarJuego() {
+function mostrarCarga() {
+    divAviso.textContent = "Cargando..."
+    divAviso.style.display = 'flex'
+}
+function qutiarCarga() {
+    divAviso.style.display = 'none'
+}
+//utilizar la api herukuapp random word para generar una palabra aleatoria
+//utilizar argumentos lang es para español y length para la cantidad de letras
+async function generarPalabra(letras){
+    let url = `https://random-word-api.herokuapp.com/word?length=${letras}&lang=es`
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data[0].toUpperCase();
+      } catch (error) {
+        console.error("Error al obtener la palabra aleatoria:", error);
+        return null;
+      }
+}
+
+async function empezarJuego() {
     quitarAviso()
     intentos = 6;
-    palabraObjetivo = seleccionarPalabraAleatoria(palabrasAleatorias).toUpperCase();
+    //esperar palabra aleatoria
+    mostrarCarga();
+    palabraObjetivo = await generarPalabra(5);
+    qutiarCarga();
+    if (!palabraObjetivo) {
+        mostrarAviso("Error al obtener la palabra aleatoria");
+        return;
+      }
+
     intento = 0;
     palabraEscrita = "";
     posLetraActual = 0;
