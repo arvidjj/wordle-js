@@ -12,6 +12,12 @@ const botonReiniciar = document.getElementById('reiniciar');
 const divAviso = document.querySelector(".aviso")
 divAviso.style.display = "none"
 botonReiniciar.addEventListener('click', empezarJuego)
+botonReiniciar.addEventListener('keydown', function(e) {
+    if(e.keyCode === 13){
+        e.preventDefault();
+        return false;
+    }
+})
 
 function mostrarAviso(aviso) {
     divAviso.textContent = aviso
@@ -31,7 +37,7 @@ function mostrarCarga() {
     divAviso.textContent = "Cargando..."
     divAviso.style.display = 'flex'
 }
-function qutiarCarga() {
+function quitarCarga() {
     divAviso.style.display = 'none'
 }
 //utilizar la api herukuapp random word para generar una palabra aleatoria
@@ -49,12 +55,17 @@ async function generarPalabra(letras){
 }
 
 async function empezarJuego() {
+    //si el juego se reinicio (no se termino), mostrar modal
+    if (iniciado === true) {
+        mostrarModal("reinicio")
+    }
+    
     quitarAviso()
     intentos = 6;
     //esperar palabra aleatoria
     mostrarCarga();
     palabraObjetivo = await generarPalabra(5);
-    qutiarCarga();
+    quitarCarga();
     if (!palabraObjetivo) {
         mostrarAviso("Error al obtener la palabra aleatoria");
         return;
@@ -65,10 +76,7 @@ async function empezarJuego() {
     posLetraActual = 0;
     finalizado = false
 
-    //si el juego se reinicio (no se termino), mostrar modal
-    if (iniciado === true) {
-        mostrarModal("reinicio")
-    }
+    
     iniciado = true;
     const letras = document.querySelectorAll(".letra");
     //quitar el color a las letras
